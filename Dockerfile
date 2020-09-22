@@ -1,5 +1,7 @@
 # Test file.
-FROM persocom01/01_base_image
-MAINTAINER clarenceboonteck.toh@dxc.com
+FROM ubuntu
+MAINTAINER demousr@gmail.com
 
-CMD ["echo", "base image created"]
+RUN apt-get update
+RUN apt-get install -y nginx
+CMD ["echo", "Image created"]

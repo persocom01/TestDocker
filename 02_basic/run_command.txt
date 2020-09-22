@@ -1,0 +1,3 @@
+docker run –dp 80:80 03_webserver
+
+go to localhost in a web browser to test.
