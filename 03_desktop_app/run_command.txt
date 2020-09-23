@@ -1,0 +1,3 @@
+depending on host operating system, the DISPLAY variable is set differently:
+
+1. macOS

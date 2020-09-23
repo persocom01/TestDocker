@@ -12,6 +12,14 @@ Depending on the operating system, docker is installed in different ways.
 
 The windows version of docker can easily be installed using the installer, which can be downloaded here: https://hub.docker.com/editions/community/docker-ce-desktop-windows/
 
+In order to run containerized desktop linux applications on windows, there is also a need to install XServer, which is part of every linux desktop environment. Get it here: https://sourceforge.net/projects/vcxsrv/
+
+To pass the windows XServer to the container, use the following command when running the container:
+
+```
+docker run -e DISPLAY=host.docker.internal:0 image dockerhub_image_path
+```
+
 ## Usage
 
 ### Building docker images
@@ -122,6 +130,7 @@ Flags can be defined while using the docker run command, including:
 -p defines the port mapping, in this case 80 (host) : 80 (container). To map multiple ports, -p can be called multiple times, such as -p 8080:8080 -p 50000:50000
 --entrypoint new_command allows one to override ENTRYPOINT commands.
 -d runs the container in detached mode (in the background). This means the command line will remain free to issue other commands, but also means you don't see the output of the container. Note that seeing the output of the container does not mean one can issue commands to it.
+-e var=value passes an environmental variable from the host to the container. Important when running desktop applications on docker.
 -rm means the container will be automatically removed when docker exits.
 -it is actually two separate flags normally used together. It allows certain containers to stick around after its last foreground task is done. When using git bash on windows, enter winpty in front of the command like this:
 

@@ -1,7 +1,7 @@
 # Demonstrates building a webserver using docker.
 FROM ubuntu
 
-# Prevents prompts from appearing.
+# Prevents prompts from appearing during installation.
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y apache2
