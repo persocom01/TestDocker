@@ -12,9 +12,9 @@ Depending on the operating system, docker is installed in different ways.
 
 The windows version of docker can easily be installed using the installer, which can be downloaded here: https://hub.docker.com/editions/community/docker-ce-desktop-windows/
 
-In order to run containerized desktop linux applications on windows, there is also a need to install XServer, which is part of every linux desktop environment. Get it here: https://sourceforge.net/projects/vcxsrv/
+In order to run containerized desktop linux applications on windows, there is also a need to install and run XServer, which is part of every linux desktop environment. Get it here: https://sourceforge.net/projects/vcxsrv/
 
-To pass the windows XServer to the container, use the following command when running the container:
+To make windows XServer communicate with the container, use the following command:
 
 ```
 docker run -e DISPLAY=host.docker.internal:0 image dockerhub_image_path
