@@ -1,3 +1,10 @@
 depending on host operating system, the DISPLAY variable is set differently:
 
 1. macOS
+docker run -e DISPLAY=docker.for.mac.host.internal:0
+
+2. Windows
+docker run -e DISPLAY=host.docker.internal:0
+
+3. Linux
+docker run --net=host -e DISPLAY=:0
