@@ -16,9 +16,11 @@ RUN export var2=disappearing_variable
 
 # ADD and COPY do the same thing, but ADD automatically unzips certain file
 # types including .tar.gz into a directory of the same name as the file.
-# To copy to the current working directory use . as the path.
+# ADD may not unzip files in expected ways.
+# When given a folder name, copies the contents of the folder and not the
+# folder itself. To copy to the current working directory use . as the path.
 ADD run_command.zip /add_dir
-COPY run_command.txt /copy_dir
+COPY /run_command_dir /copy_dir
 
 # Because every RUN command works on a new container, in order change the
 # directory in which RUN is called, WORKDIR is used. Alternatively:
