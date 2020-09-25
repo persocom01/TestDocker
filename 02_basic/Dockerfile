@@ -16,7 +16,7 @@ RUN export var2=disappearing_variable
 
 # ADD and COPY do the same thing, but ADD automatically unzips certain file
 # types including .tar.gz into a directory of the same name as the file.
-# ADD may not unzip files in expected ways.
+# ADD may unzip files in unexpected ways. COPY is recommended.
 # When given a folder name, copies the contents of the folder and not the
 # folder itself. To copy to the current working directory use . as the path.
 ADD run_command.zip /add_dir
