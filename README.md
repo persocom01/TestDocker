@@ -138,7 +138,7 @@ Flags can be defined while using the docker run command, including:
 winpty docker run -dit dockerhub_image_path
 ```
 
-To access a running container (see 02_test_server to build a indefinitely running test container) through bash, enter:
+To access a running container (see 02_basic to build a indefinitely running test container) through bash, enter:
 
 ```
 docker exec -it container_id_or_name /bin/bash
