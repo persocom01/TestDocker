@@ -161,8 +161,9 @@ docker stats container_id
 docker top container_id
 <!-- To stop a container. -->
 docker stop container_id
-<!-- To force stop a container. -->
-docker kill container_id
+<!-- To force stop a container / kill all containers. Add sudo before docker
+commands, including the one in the brackets for root privileges. -->
+docker kill container_id/$(docker ps -q)
 <!-- To remove a container. -->
 <!-- Use -f to remove a container even if it is still running. -->
 docker rm container_id
