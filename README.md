@@ -26,13 +26,14 @@ docker run -e DISPLAY=host.docker.internal:0 image dockerhub_image_path
 
 1. Write a Dockerfile.
 
-A Dockerfile is what docker uses to build images. To write one, create a file named Dockerfile (first letter caps, no extensions). A basic Dockerfile looks like this:
+A Dockerfile is what docker uses to build images. To write one, create a file named Dockerfile (first letter caps, no extensions). A Dockerfile looks like this:
 
 ```
 # Comments
 FROM ubuntu
 MAINTAINER demousr@gmail.com
 
+SHELL ["/bin/bash", "-c"]
 RUN apt-get update
 RUN apt-get install –y nginx
 ENTRYPOINT ["echo"]
@@ -41,8 +42,10 @@ CMD ["Image created"]
 
 Dockerfile contain lines which all start with certain keywords. The keywords are non case sensitive, but are ALL_CAPS by convention.
 
-FROM defines what image this new image will be based on. Only base images can be used as a base.
+FROM defines what image this new image will be based on. Only base images can be used as a base. This is the only necessary statement in a Dockerfile.
 MAINTAINER is typically the email of the person maintaining the image. It is optional and can be any email.
+SHELL is an optional command to change the default shell used to run commands on the image.
+The default shell is ["/bin/sh", "-c"].
 RUN runs cmd commands on the image. Use multiple lines of this for multiple cmd commands.
 CMD runs a cmd command run when the image is launched. Docker will only run the last CMD command.
 ENTRYPOINT is similar to CMD but is not overridden when passing a cmd command during the docker run command. There is a difference between:
@@ -80,11 +83,12 @@ docker tag image_id image_name:tag_name
 First we need to login to our dockerhub account. This is unnecessary if docker desktop is already logged in. Otherwise, basic recommended way to login requires you to store your password as a file and open it in the following way:
 
 ```
-<!-- Use -p password instead of to login without a file. -->
 <!-- windows -->
 type password.txt | docker login -u username --password-stdin
 <!-- linux -->
 cat password.txt | docker login -u username --password-stdin
+<!-- To login without a file -->
+docker login -u username -p password
 ```
 
 Once logged in, we can then push the image into the repo by entering:

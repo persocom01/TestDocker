@@ -7,7 +7,7 @@ FROM ubuntu:18.04
 # This one prevents prompts from appearing while installing apache2.
 ARG DEBIAN_FRONTEND=noninteractive
 # ENV variables are available when the image is run.
-# Enter echo $var1 in a bash shell to return the variable.
+# Call the variable using $var in a bash shell command to use it.
 # Both ARG and ENV leave traces and are not recommended for private information.
 ENV var1=1024
 # Variables defined through run commands do not persist through each RUN step
