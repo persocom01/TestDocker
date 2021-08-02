@@ -3,6 +3,19 @@
 # WORKDIR /usr/src/app
 # COPY . .
 
+# git and cache folders
 .git
+.cache
 
+# markdown and class files
+*.md
+**/*.class
+
+# logs directory
+logs/
+
+# keys and credentials
+keys.json
+
+# custom exceptions
 00_test
