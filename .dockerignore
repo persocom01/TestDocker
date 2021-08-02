@@ -17,5 +17,8 @@ logs/
 # keys and credentials
 keys.json
 
+# the Dockerfile itself (optional)
+Dockerfile
+
 # custom exceptions
 00_test
