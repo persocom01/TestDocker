@@ -1,4 +1,8 @@
 # The .dockerignore file is used to exclude sensitive information from being
-# copied into the docker image when using mass copy commands like COPY . .
+# copied into the docker image when using mass copy commands like:
+# WORKDIR /usr/src/app
+# COPY . .
+
+.git
 
 00_test
