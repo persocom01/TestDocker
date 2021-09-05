@@ -22,6 +22,11 @@ docker run -e DISPLAY=host.docker.internal:0 image dockerhub_image_path
 
 ## Usage
 
+* Building docker images
+* Running docker images
+* Docker daemon
+* Connecting to services on localhost
+
 ### Building docker images
 
 1. Write a Dockerfile.
@@ -42,20 +47,19 @@ CMD ["Image created"]
 
 Dockerfile contain lines which all start with certain keywords. The keywords are non case sensitive, but are ALL_CAPS by convention.
 
-FROM defines what image this new image will be based on. Only base images can be used as a base. This is the only necessary statement in a Dockerfile.
-MAINTAINER is typically the email of the person maintaining the image. It is optional and can be any email.
-SHELL is an optional command to change the default shell used to run commands on the image.
-The default shell is ["/bin/sh", "-c"].
-RUN runs cmd commands on the image. Use multiple lines of this for multiple cmd commands.
-CMD runs a cmd command run when the image is launched. Docker will only run the last CMD command.
-ENTRYPOINT is similar to CMD but is not overridden when passing a cmd command during the docker run command. There is a difference between:
+`FROM` - defines what image this new image will be based on. Only base images can be used as a base. This is the only necessary statement in a Dockerfile.
+`MAINTAINER` - typically the email of the person maintaining the image. It is optional and can be any email.
+`SHELL` - an optional command to change the default shell used to run commands on the image. The default shell is ["/bin/sh", "-c"].
+`RUN` - runs cmd commands on the image. Use multiple lines of this for multiple cmd commands.
+`CMD` - run a cmd command run when the image is launched. Docker will only run the last CMD command.
+`ENTRYPOINT` - similar to CMD but is not overridden when passing a cmd command during the docker run command. There is a difference between:
 
 ```
 ENTRYPOINT ["command"]
 ENTRYPOINT command
 ```
 
-In the first instance, the optional_cmd_override attached to docker run will be attached to the end of the ENTRYPOINT command as it they were part of the list:
+In the first instance, the optional_cmd_override attached to docker run will be attached to the end of the `ENTRYPOINT` command as it they were part of the list:
 
 ```
 ENTRYPOINT ["command", "optional_cmd_override"]
@@ -65,7 +69,7 @@ In the second instance, ENTRYPOINT will not take into account optional_cmd_overr
 
 2. Build docker image.
 
-After the Dockerfile is written, ensure that the docker daemon is running (in windows, docker desktop is running), then open cmd (or git bash) in the folder and enter:
+After the `Dockerfile` is written, ensure that the docker daemon is running (in windows, docker desktop is running), then open cmd (or git bash) in the folder and enter:
 
 ```
 <!-- Replace . with the Dockerfile directory if not in the same folder. -->
@@ -131,12 +135,12 @@ docker run -p 80:80 dockerhub_image_path optional_cmd_override
 When run, the image can be given a cmd command to run instead of the one specified in the Dockerfile.
 
 Flags can be defined while using the docker run command, including:
--p defines the port mapping, in this case 80 (host) : 80 (container). To map multiple ports, -p can be called multiple times, such as -p 8080:8080 -p 50000:50000
---entrypoint new_command allows one to override ENTRYPOINT commands.
--d runs the container in detached mode (in the background). This means the command line will remain free to issue other commands, but also means you don't see the output of the container. Note that seeing the output of the container does not mean one can issue commands to it.
--e var=value passes an environmental variable from the host to the container. Important when running desktop applications on docker.
--rm means the container will be automatically removed when docker exits.
--it is actually two separate flags normally used together. It allows certain containers to stick around after its last foreground task is done. When using git bash on windows, enter winpty in front of the command like this:
+`-p` - the port mapping, in this case 80 (host) : 80 (container). To map multiple ports, -p can be called multiple times, such as -p 8080:8080 -p 50000:50000
+`--entrypoint new_command` - override ENTRYPOINT commands.
+`-d` - runs the container in detached mode (in the background). This means the command line will remain free to issue other commands, but also means you don't see the output of the container. Note that seeing the output of the container does not mean one can issue commands to it.
+`-e var=value` - passes an environmental variable from the host to the container. Important when running desktop applications on docker.
+`-rm` - removes the container automatically when docker exits.
+`-it` is actually two separate flags normally used together. It allows certain containers to stick around after its last foreground task is done. When using git bash on windows, enter winpty in front of the command like this:
 
 ```
 winpty docker run -dit dockerhub_image_path
@@ -201,9 +205,15 @@ docker history image_id_OR_dockerhub_image_path
 
 ### Docker daemon
 
-Probably used more often on linux, where you may want to start or stop the docker daemon using:
+On linux, you may want to start or stop the docker daemon using:
 
 ```
 service docker start
 service docker stop
 ```
+
+### Connecting to services on localhost
+
+During development, you may want apps in a docker container to connect to services on `localhost`. However, for docker containers, this only results in the app trying to reach localhost inside the container itself, and not the host machine. To connect to the host machine:
+1. On windows, use `host.docker.internal` instead of localhost.
+2. On linux, use `172.17.0.1`, which is the container network.
